@@ -10,7 +10,48 @@
         <Border Name="border" BorderThickness="1" Padding="0"
                 BorderBrush="{Binding BorderBrush}" 
                 Background="{Binding BackgroundBrush}">
-            <Rectangle Height="{Binding FillActualHeight}" VerticalAlignment="Bottom" Fill="{Binding FilledBrush}" Margin="0"/>
+            <Border.Resources>
+                <Style TargetType="TextBlock" x:Key="txtHideMaxFill">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding HideMaxFill}" Value="True">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+                <Style TargetType="TextBlock" x:Key="txtHideIfEmpty">
+                    <Style.Triggers>
+                        <Trigger Property="Text" Value="">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+                <!--<Style TargetType="TextBlock" x:Key="txtDataPointTitle">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding DatapointTitle}" Value="">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding DatapointTitle}" Value="{x:Null}">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>-->
+            </Border.Resources>
+            <Border.ToolTip>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="{Binding DatapointTitle}" FontWeight="Bold" Style="{StaticResource txtHideIfEmpty}"/>
+                    <TextBlock Text="{Binding DatapointDescription}" FontStyle="Italic" Style="{StaticResource txtHideIfEmpty}"/>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="{Binding Fill}"/>
+                        <TextBlock Text="/" Style="{StaticResource txtHideMaxFill}"/>
+                        <TextBlock Text="{Binding MaxFill}" Style="{StaticResource txtHideMaxFill}"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border.ToolTip>
+            <Rectangle Height="{Binding FillActualHeight}" 
+                       Fill="{Binding FilledBrush}" 
+                       VerticalAlignment="Bottom" 
+                       Margin="0">
+            </Rectangle>
         </Border>
     </Grid>
 </UserControl>

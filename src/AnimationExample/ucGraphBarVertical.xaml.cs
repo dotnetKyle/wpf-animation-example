@@ -1,17 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using WpfDesignerHelper;
 
 namespace AnimationExample
 {
@@ -25,6 +16,15 @@ namespace AnimationExample
             InitializeComponent();
             grid.DataContext = this;
             this.SizeChanged += UcGraphBarVertical_SizeChanged;
+            if(Designer.Active)
+            {
+                MaxFill = 100;
+                Fill = 25;
+                this.SetValue(FillActualHeightKey, 50.0);
+                BackgroundBrush = Brushes.Yellow;
+                BorderBrush = Brushes.Black;
+                FilledBrush = Brushes.Red;
+            }
         }
 
         private void UcGraphBarVertical_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -32,6 +32,28 @@ namespace AnimationExample
             if(e.HeightChanged)
                 ucGraphBarVertical.relcalculateFillActualHeight(this);            
         }
+
+        /// <summary>
+        /// The name for the datapoint
+        /// </summary>
+        public string DatapointTitle
+        {
+            get { return (string)GetValue(DatapointTitleProperty); }
+            set { SetValue(DatapointTitleProperty, value); }
+        }
+        public static readonly DependencyProperty DatapointTitleProperty =
+            DependencyProperty.Register(nameof(DatapointTitle), typeof(string), typeof(ucGraphBarVertical), new PropertyMetadata(null));
+
+        /// <summary>
+        /// The description for the datapoint
+        /// </summary>
+        public string DatapointDescription
+        {
+            get { return (string)GetValue(DatapointDescriptionProperty); }
+            set { SetValue(DatapointDescriptionProperty, value); }
+        }
+        public static readonly DependencyProperty DatapointDescriptionProperty =
+            DependencyProperty.Register(nameof(DatapointDescription), typeof(string), typeof(ucGraphBarVertical), new PropertyMetadata(null));
 
         /// <summary>
         /// The background color of the graph bar
@@ -56,7 +78,7 @@ namespace AnimationExample
             set { SetValue(FilledBrushProperty, value); }
         }
         public static readonly DependencyProperty FilledBrushProperty =
-            DependencyProperty.Register(nameof(FilledBrushProperty), typeof(Brush), typeof(ucGraphBarVertical), 
+            DependencyProperty.Register(nameof(FilledBrush), typeof(Brush), typeof(ucGraphBarVertical), 
                 new PropertyMetadata(Brushes.Blue));
 
         /// <summary>
@@ -69,7 +91,7 @@ namespace AnimationExample
             set { SetValue(BorderBrushProperty, value); }
         }
         public static new readonly DependencyProperty BorderBrushProperty =
-            DependencyProperty.Register(nameof(BorderBrushProperty), typeof(Brush), typeof(ucGraphBarVertical),
+            DependencyProperty.Register(nameof(BorderBrush), typeof(Brush), typeof(ucGraphBarVertical),
                 new PropertyMetadata(Brushes.Blue));
 
         /// <summary>
@@ -100,6 +122,19 @@ namespace AnimationExample
             o.SetValue(FillProperty, args.NewValue);
             relcalculateFillActualHeight(o);
         }
+
+
+        /// <summary>
+        /// If true, hides the max fill value (needed if the maxfill height is dynamic and doesn't mean anything to the user)
+        /// </summary>
+        public bool HideMaxFill
+        {
+            get { return (bool)GetValue(HideMaxFillProperty); }
+            set { SetValue(HideMaxFillProperty, value); }
+        }
+        public static readonly DependencyProperty HideMaxFillProperty =
+            DependencyProperty.Register(nameof(HideMaxFill), typeof(bool), typeof(ucGraphBarVertical), new PropertyMetadata(true));
+
 
         #region Read Only Props
         public double FillActualHeight
@@ -137,6 +172,7 @@ namespace AnimationExample
                 o.SetValue(FillActualHeightKey, actualFillHeight);
             }
         }
+
         #endregion
     }
 }

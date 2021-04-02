@@ -18,13 +18,16 @@
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">            
-            <local:ucGraphBarVertical HorizontalAlignment="Left" Margin="5" Width="25" 
+            <local:ucGraphBarVertical HorizontalAlignment="Left" Margin="5" Width="25"
+                                      DatapointTitle="NASDAQ"
                                       Fill="25"
                                       FilledBrush="Red"
                                       BackgroundBrush="WhiteSmoke" 
                                       BorderBrush="Red" />
             <local:ucGraphBarVertical HorizontalAlignment="Left" Margin="5" Width="25" 
+                                      DatapointTitle="NYSE"
                                       Fill="50"
+                                      HideMaxFill="True"
                                       FilledBrush="Blue"
                                       BackgroundBrush="WhiteSmoke" 
                                       BorderBrush="Blue" />
