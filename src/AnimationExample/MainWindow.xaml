@@ -1,0 +1,39 @@
+﻿<Window x:Class="AnimationExample.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AnimationExample"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">            
+            <local:ucGraphBarVertical HorizontalAlignment="Left" Margin="5" Width="25" 
+                                      Fill="25"
+                                      FilledBrush="Red"
+                                      BackgroundBrush="WhiteSmoke" 
+                                      BorderBrush="Red" />
+            <local:ucGraphBarVertical HorizontalAlignment="Left" Margin="5" Width="25" 
+                                      Fill="50"
+                                      FilledBrush="Blue"
+                                      BackgroundBrush="WhiteSmoke" 
+                                      BorderBrush="Blue" />
+        </StackPanel>
+
+        <Button Content="Open Dialog" 
+                Click="OpenDialog_Click"
+                HorizontalAlignment="Right" 
+                VerticalAlignment="Bottom" 
+                Margin="10" Grid.Row="2" Grid.Column="1"/>
+    </Grid>
+</Window>
