@@ -7,7 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="dotnetKyle.WpfDesignerHelper" Version="0.0.4" />
+    <PackageReference Include="dotnetKyle.WpfDesignerHelper" Version="1.0.0" />
   </ItemGroup>
 
 </Project>
