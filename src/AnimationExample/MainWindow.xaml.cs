@@ -44,17 +44,19 @@ namespace AnimationExample
             // make random changes to the graphs
             Dispatcher.Invoke(() =>
             {
-                graphBack.Fill = rand.Next(0, graphBack.MaxFill + 1);
-                graphBounce.Fill = rand.Next(0, graphBounce.MaxFill + 1);
-                graphCircle.Fill = rand.Next(0, graphCircle.MaxFill + 1);
-                graphCubic.Fill = rand.Next(0, graphCubic.MaxFill + 1);
-                graphElastic.Fill = rand.Next(0, graphElastic.MaxFill + 1);
-                graphExponential.Fill = rand.Next(0, graphExponential.MaxFill + 1);
-                graphPower.Fill = rand.Next(0, graphPower.MaxFill + 1);
-                graphQuadratic.Fill = rand.Next(0, graphQuadratic.MaxFill + 1);
-                graphQuartic.Fill = rand.Next(0, graphQuartic.MaxFill + 1);
-                graphQuintic.Fill = rand.Next(0, graphQuintic.MaxFill + 1);
-                graphSine.Fill = rand.Next(0, graphSine.MaxFill + 1);
+                int getRand() => rand.Next(15, 86);
+
+                graphBack.Fill = getRand();
+                graphBounce.Fill = getRand();
+                graphCircle.Fill = getRand();
+                graphCubic.Fill = getRand();
+                graphElastic.Fill = getRand();
+                graphExponential.Fill = getRand();
+                graphPower.Fill = getRand();
+                graphQuadratic.Fill = getRand();
+                graphQuartic.Fill = getRand();
+                graphQuintic.Fill = getRand();
+                graphSine.Fill = getRand();
             });
         }
     }
