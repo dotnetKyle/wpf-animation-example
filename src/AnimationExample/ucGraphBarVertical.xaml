@@ -24,17 +24,7 @@
                             <Setter Property="Visibility" Value="Collapsed"/>
                         </Trigger>
                     </Style.Triggers>
-                </Style>
-                <!--<Style TargetType="TextBlock" x:Key="txtDataPointTitle">
-                    <Style.Triggers>
-                        <DataTrigger Binding="{Binding DatapointTitle}" Value="">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                        </DataTrigger>
-                        <DataTrigger Binding="{Binding DatapointTitle}" Value="{x:Null}">
-                            <Setter Property="Visibility" Value="Collapsed"/>
-                        </DataTrigger>
-                    </Style.Triggers>
-                </Style>-->
+                </Style>                
             </Border.Resources>
             <Border.ToolTip>
                 <StackPanel Orientation="Vertical">
@@ -47,10 +37,30 @@
                     </StackPanel>
                 </StackPanel>
             </Border.ToolTip>
-            <Rectangle Height="{Binding FillActualHeight}" 
+            <Rectangle Name="rectFillBar" 
+                       Height="{Binding FillActualHeight}"
                        Fill="{Binding FilledBrush}" 
                        VerticalAlignment="Bottom" 
                        Margin="0">
+                <!--<Rectangle.RenderTransform>
+                    <TranslateTransform x:Name="graphResize" X="1" Y="1" />
+                </Rectangle.RenderTransform>
+                <Rectangle.Triggers>
+                    <EventTrigger RoutedEvent="Rectangle.Loaded">
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <SizeAnimation Duration="0:0:2"    />
+                                <DoubleAnimation
+                                    Storyboard.TargetName="graphResize"
+                                    Storyboard.TargetProperty="(Rectangle.Height)"
+                                    To="150" 
+                                    Duration="0:0:2" 
+                                    AutoReverse="True"
+                                    RepeatBehavior="Forever" />
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </EventTrigger>
+                </Rectangle.Triggers>-->
             </Rectangle>
         </Border>
     </Grid>
