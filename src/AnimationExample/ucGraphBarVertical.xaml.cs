@@ -8,38 +8,31 @@ using WpfDesignerHelper;
 
 namespace AnimationExample
 {
-    /// <summary>
-    /// Interaction logic for ucGraphBarVertical.xaml
-    /// </summary>
     public partial class ucGraphBarVertical : UserControl
     {
-        private DoubleAnimation doubleAnimation;
-        private Storyboard animationStoryboard;
+        public DoubleAnimation RectHeightAnimation { get; set; }
+        public Storyboard RectHeightAnimationStoryboard { get; set; }
 
         public ucGraphBarVertical()
         {
             InitializeComponent();
             grid.DataContext = this;
 
-            if(Designer.Active)
+            // setup animation
+            RectHeightAnimation = new DoubleAnimation();
+            RectHeightAnimation.Duration = new Duration(TimeSpan.FromSeconds(2));
+            RectHeightAnimation.AutoReverse = false;
+            RectHeightAnimation.RepeatBehavior = new RepeatBehavior(1);
+            RectHeightAnimationStoryboard = new Storyboard();
+            RectHeightAnimationStoryboard.Children.Add(RectHeightAnimation);
+
+            if (Designer.Active)
             {
                 MaxFill = 100;
                 Fill = 25;
-                this.SetValue(FillActualHeightKey, 50.0);
-                BackgroundBrush = Brushes.Yellow;
-                BorderBrush = Brushes.Black;
-                FilledBrush = Brushes.Red;
             }
 
             SizeChanged += UcGraphBarVertical_SizeChanged;
-
-            // setup animation
-            doubleAnimation = new DoubleAnimation();
-            doubleAnimation.Duration = new Duration(TimeSpan.FromSeconds(2));
-            doubleAnimation.AutoReverse = false;
-            doubleAnimation.RepeatBehavior = new RepeatBehavior(1);
-            animationStoryboard = new Storyboard();
-            animationStoryboard.Children.Add(doubleAnimation);
         }
 
         private void UcGraphBarVertical_SizeChanged(object sender, SizeChangedEventArgs e)
@@ -48,9 +41,7 @@ namespace AnimationExample
                 ucGraphBarVertical.relcalculateFillActualHeight(this);            
         }
 
-        /// <summary>
-        /// The name for the datapoint
-        /// </summary>
+        /// <summary>The name for the datapoint</summary>
         public string DatapointTitle
         {
             get { return (string)GetValue(DatapointTitleProperty); }
@@ -59,9 +50,7 @@ namespace AnimationExample
         public static readonly DependencyProperty DatapointTitleProperty =
             DependencyProperty.Register(nameof(DatapointTitle), typeof(string), typeof(ucGraphBarVertical), new PropertyMetadata(null));
 
-        /// <summary>
-        /// The description for the datapoint
-        /// </summary>
+        /// <summary>The description for the datapoint</summary>
         public string DatapointDescription
         {
             get { return (string)GetValue(DatapointDescriptionProperty); }
@@ -70,8 +59,7 @@ namespace AnimationExample
         public static readonly DependencyProperty DatapointDescriptionProperty =
             DependencyProperty.Register(nameof(DatapointDescription), typeof(string), typeof(ucGraphBarVertical), new PropertyMetadata(null));
 
-        /// <summary>
-        /// The background color of the graph bar
+        /// <summary>The background color of the graph bar
         /// <para>Default is Transparent</para>
         /// </summary>
         public Brush BackgroundBrush
@@ -83,8 +71,7 @@ namespace AnimationExample
             DependencyProperty.Register(nameof(BackgroundBrush), typeof(Brush), typeof(ucGraphBarVertical), 
                 new PropertyMetadata(Brushes.Transparent));
 
-        /// <summary>
-        /// The fill color for the graph bar
+        /// <summary>The fill color for the graph bar
         /// <para>Default is blue</para>
         /// </summary>
         public Brush FilledBrush
@@ -96,8 +83,7 @@ namespace AnimationExample
             DependencyProperty.Register(nameof(FilledBrush), typeof(Brush), typeof(ucGraphBarVertical), 
                 new PropertyMetadata(Brushes.Blue));
 
-        /// <summary>
-        /// The color for the graph bar border around the entire bar
+        /// <summary>The color for the graph bar border around the entire bar
         /// <para>Default is blue</para>
         /// </summary>
         public new Brush BorderBrush
@@ -109,8 +95,7 @@ namespace AnimationExample
             DependencyProperty.Register(nameof(BorderBrush), typeof(Brush), typeof(ucGraphBarVertical),
                 new PropertyMetadata(Brushes.Blue));
 
-        /// <summary>
-        /// The max fill value for the graph bar
+        /// <summary>The max fill value for the graph bar
         /// <para>The default is 100</para>
         /// </summary>
         public int MaxFill
@@ -119,10 +104,12 @@ namespace AnimationExample
             set { SetValue(MaxFillProperty, value); }
         }
         public static readonly DependencyProperty MaxFillProperty =
-            DependencyProperty.Register(nameof(MaxFill), typeof(int), typeof(ucGraphBarVertical), new PropertyMetadata(100));
+            DependencyProperty.Register(nameof(MaxFill), typeof(int), typeof(ucGraphBarVertical), 
+                new PropertyMetadata(100, new PropertyChangedCallback(MaxFillChanged)));
+        static void MaxFillChanged(DependencyObject o, DependencyPropertyChangedEventArgs args)
+            => relcalculateFillActualHeight(o);
 
-        /// <summary>
-        /// The fill value for the graph bar
+        /// <summary>The fill value for the graph bar
         /// <para>Default is zero</para>
         /// </summary>
         public int Fill
@@ -133,12 +120,10 @@ namespace AnimationExample
         public static readonly DependencyProperty FillProperty =
             DependencyProperty.Register("Fill", typeof(int), typeof(ucGraphBarVertical), new PropertyMetadata(0, new PropertyChangedCallback(FillChanged)));
         protected static void FillChanged(DependencyObject o, DependencyPropertyChangedEventArgs args)
-        {
-            relcalculateFillActualHeight(o);
-        }
+            => relcalculateFillActualHeight(o);
 
-        /// <summary>
-        /// If true, hides the max fill value (needed if the maxfill height is dynamic and doesn't mean anything to the user)
+        /// <summary>If true, hides the max fill value 
+        /// (needed if the maxfill height is dynamic and doesn't mean anything to the user)
         /// </summary>
         public bool HideMaxFill
         {
@@ -149,6 +134,7 @@ namespace AnimationExample
             DependencyProperty.Register(nameof(HideMaxFill), typeof(bool), typeof(ucGraphBarVertical), new PropertyMetadata(true));
 
         #region Read Only Props
+
         public double FillActualHeight
         {
             get { return (double)GetValue(FillActualHeightProperty); }
@@ -160,6 +146,8 @@ namespace AnimationExample
             new FrameworkPropertyMetadata(0.0, FrameworkPropertyMetadataOptions.None, new PropertyChangedCallback(animateFillHeight)));
         public static readonly DependencyProperty FillActualHeightProperty
             = FillActualHeightKey.DependencyProperty;
+        /// <summary>The fill actual height depends on multiple properties: the graph ActualHeight, the Fill, and the MaxFill
+        /// </summary>
         static void relcalculateFillActualHeight(DependencyObject o)
         {
             var maxFill = (int)o.GetValue(MaxFillProperty);
@@ -168,8 +156,8 @@ namespace AnimationExample
 
             if (double.IsNaN(actualHeight) == false)
             {
-                // can't divide by zero
                 var actualFillHeight = 0.0;
+                // can't divide by zero
                 if (maxFill != 0)
                 {
                     var fillPercent = (actualHeight / maxFill) * newFill;
@@ -182,24 +170,20 @@ namespace AnimationExample
                 }
 
                 o.SetValue(FillActualHeightKey, actualFillHeight);
-
             }
         }
         static void animateFillHeight(DependencyObject o, DependencyPropertyChangedEventArgs args)
         {
-            var oldVal = (double)args.OldValue;
-            var newVal = (double)args.NewValue;
-
             var graph = o as ucGraphBarVertical;
-            if (graph != null && graph.IsLoaded)
+            if (graph != null)
             {
                 var rect = graph.rectFillBar;
 
-                graph.doubleAnimation.From = oldVal;
-                graph.doubleAnimation.To = newVal;
-                Storyboard.SetTargetName(graph.doubleAnimation, rect.Name);
-                Storyboard.SetTargetProperty(graph.doubleAnimation, new PropertyPath(Rectangle.HeightProperty));
-                graph.animationStoryboard.Begin(graph);
+                graph.RectHeightAnimation.From = (double)args.OldValue;
+                graph.RectHeightAnimation.To = (double)args.NewValue;
+                Storyboard.SetTargetName(graph.RectHeightAnimation, rect.Name);
+                Storyboard.SetTargetProperty(graph.RectHeightAnimation, new PropertyPath(Rectangle.HeightProperty));
+                graph.RectHeightAnimationStoryboard.Begin(graph);
             }
         }
 

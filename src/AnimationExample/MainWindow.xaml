@@ -7,38 +7,158 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Grid.Resources>
+            <Style TargetType="TextBlock">
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="VerticalAlignment" Value="Top"/>
+                <Setter Property="Margin" Value="0,0,0,4"/>
+                <Setter Property="LayoutTransform">
+                    <Setter.Value>
+                        <RotateTransform Angle="-75"/>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            <Style TargetType="local:ucGraphBarVertical">
+                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="Margin" Value="10"/>
+            </Style>
+        </Grid.Resources>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
-            <RowDefinition/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="0">            
-            <local:ucGraphBarVertical x:Name="graph1" 
-                                      HorizontalAlignment="Left" Margin="5" Width="25"
-                                      DatapointTitle="NASDAQ"
-                                      Fill="25"
-                                      FilledBrush="Red"
-                                      BackgroundBrush="WhiteSmoke" 
-                                      BorderBrush="Red" />
-            <local:ucGraphBarVertical x:Name="graph2" 
-                                      HorizontalAlignment="Left" Margin="5" Width="25" 
-                                      DatapointTitle="NYSE"
-                                      Fill="50"
-                                      HideMaxFill="True"
-                                      FilledBrush="Blue"
-                                      BackgroundBrush="WhiteSmoke" 
-                                      BorderBrush="Blue" />
-        </StackPanel>
+        <local:ucGraphBarVertical x:Name="graphBack" 
+                                    DatapointTitle="Back Ease"
+                                    Fill="25"
+                                    FilledBrush="Red"
+                                    BackgroundBrush="WhiteSmoke" 
+                                    BorderBrush="Red"
+                                  Grid.Column="0" />
+        <TextBlock Text="Back Ease" Grid.Column="0" Grid.Row="1" />
+        
+        <local:ucGraphBarVertical x:Name="graphBounce" 
+                                    
+                                    DatapointTitle="Bounce Ease"
+                                    Fill="50"
+                                    HideMaxFill="True"
+                                    FilledBrush="Blue"
+                                    BackgroundBrush="WhiteSmoke" 
+                                    BorderBrush="Blue"
+                                  Grid.Column="1" />
+        <TextBlock Text="Bounce Ease" Grid.Column="1" Grid.Row="1" />
 
-        <Button Content="Open Dialog" 
-                Click="OpenDialog_Click"
-                HorizontalAlignment="Right" 
-                VerticalAlignment="Bottom" 
-                Margin="10" Grid.Row="2" Grid.Column="1"/>
+        <local:ucGraphBarVertical x:Name="graphCircle" 
+                                    
+                                    DatapointTitle="Circle Ease"
+                                    Fill="50"
+                                    HideMaxFill="True"
+                                    FilledBrush="Yellow"
+                                    BackgroundBrush="WhiteSmoke" 
+                                    BorderBrush="Yellow" 
+                                  Grid.Column="2" />
+        <TextBlock Text="Circle Ease" Grid.Column="2" Grid.Row="1" />
+            
+        <local:ucGraphBarVertical x:Name="graphCubic" 
+                                    
+                                    DatapointTitle="Cubic Ease"
+                                    Fill="50"
+                                    HideMaxFill="True"
+                                    FilledBrush="Black"
+                                    BackgroundBrush="WhiteSmoke" 
+                                    BorderBrush="Black" 
+                                  Grid.Column="3" />
+        <TextBlock Text="Cubic Ease" Grid.Column="3" Grid.Row="1" />
+            
+        <local:ucGraphBarVertical x:Name="graphElastic" 
+                                    
+                                    DatapointTitle="Elastic Ease"
+                                    Fill="50"
+                                    HideMaxFill="True"
+                                    FilledBrush="Green"
+                                    BackgroundBrush="WhiteSmoke" 
+                                    BorderBrush="Green" 
+                                  Grid.Column="4" />
+        <TextBlock Text="Elastic Ease" Grid.Column="4" Grid.Row="1" />
+            
+        <local:ucGraphBarVertical x:Name="graphExponential" 
+                                    
+                                    DatapointTitle="Exponential Ease"
+                                    Fill="50"
+                                    HideMaxFill="True"
+                                    FilledBrush="DarkOrange"
+                                    BackgroundBrush="WhiteSmoke" 
+                                    BorderBrush="DarkOrange" 
+                                  Grid.Column="5" />
+        <TextBlock Text="Exponential Ease" Grid.Column="5" Grid.Row="1" />
+
+        <local:ucGraphBarVertical x:Name="graphPower" 
+                                    
+                                    DatapointTitle="Power Ease"
+                                    Fill="50"
+                                    HideMaxFill="True"
+                                    FilledBrush="Gray"
+                                    BackgroundBrush="WhiteSmoke" 
+                                    BorderBrush="Gray" 
+                                  Grid.Column="6" />
+        <TextBlock Text="Power Ease" Grid.Column="6" Grid.Row="1" />
+            
+        <local:ucGraphBarVertical x:Name="graphQuadratic" 
+                                    
+                                    DatapointTitle="Quadratic Ease"
+                                    Fill="50"
+                                    HideMaxFill="True"
+                                    FilledBrush="Purple"
+                                    BackgroundBrush="WhiteSmoke" 
+                                    BorderBrush="Purple" 
+                                  Grid.Column="7" />
+        <TextBlock Text="Quadratic Ease" Grid.Column="7" Grid.Row="1" />
+            
+        <local:ucGraphBarVertical x:Name="graphQuartic" 
+                                    
+                                    DatapointTitle="Quartic Ease"
+                                    Fill="50"
+                                    HideMaxFill="True"
+                                    FilledBrush="Brown"
+                                    BackgroundBrush="WhiteSmoke" 
+                                    BorderBrush="Brown" 
+                                  Grid.Column="8" />
+        <TextBlock Text="Quartic Ease" Grid.Column="8" Grid.Row="1" />
+            
+        <local:ucGraphBarVertical x:Name="graphQuintic" 
+                                    
+                                    DatapointTitle="Quintic Ease"
+                                    Fill="50"
+                                    HideMaxFill="True"
+                                    FilledBrush="Blue"
+                                    BackgroundBrush="WhiteSmoke" 
+                                    BorderBrush="Blue" 
+                                  Grid.Column="9" />
+        <TextBlock Text="Quintic Ease" Grid.Column="9" Grid.Row="1" />
+            
+        <local:ucGraphBarVertical x:Name="graphSine" 
+                                    
+                                    DatapointTitle="Sine Ease"
+                                    Fill="50"
+                                    HideMaxFill="True"
+                                    FilledBrush="Yellow"
+                                    BackgroundBrush="WhiteSmoke" 
+                                    BorderBrush="Yellow" 
+                                  Grid.Column="10" />
+        <TextBlock Text="Sine Ease" Grid.Column="10" Grid.Row="1" />
     </Grid>
 </Window>

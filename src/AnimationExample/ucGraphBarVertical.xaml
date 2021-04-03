@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:AnimationExample"
-             mc:Ignorable="d" 
+             mc:Ignorable="d" HorizontalAlignment="Stretch"
              d:DesignHeight="200" d:DesignWidth="40">
     <Grid x:Name="grid" d:DataContext="{d:DesignInstance Type=local:ucGraphBarVertical, IsDesignTimeCreatable=True}">
         <Border Name="border" BorderThickness="1" Padding="0"
@@ -42,25 +42,6 @@
                        Fill="{Binding FilledBrush}" 
                        VerticalAlignment="Bottom" 
                        Margin="0">
-                <!--<Rectangle.RenderTransform>
-                    <TranslateTransform x:Name="graphResize" X="1" Y="1" />
-                </Rectangle.RenderTransform>
-                <Rectangle.Triggers>
-                    <EventTrigger RoutedEvent="Rectangle.Loaded">
-                        <BeginStoryboard>
-                            <Storyboard>
-                                <SizeAnimation Duration="0:0:2"    />
-                                <DoubleAnimation
-                                    Storyboard.TargetName="graphResize"
-                                    Storyboard.TargetProperty="(Rectangle.Height)"
-                                    To="150" 
-                                    Duration="0:0:2" 
-                                    AutoReverse="True"
-                                    RepeatBehavior="Forever" />
-                            </Storyboard>
-                        </BeginStoryboard>
-                    </EventTrigger>
-                </Rectangle.Triggers>-->
             </Rectangle>
         </Border>
     </Grid>
